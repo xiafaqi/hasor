@@ -23,8 +23,8 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y libxml2-dev
 
-script: mvn test -Dmaven.javadoc.skip=true
-
+script: 
+  - mvn clean package -Dmaven.javadoc.skip=true
 
 after_success:
   - 
@@ -35,21 +35,7 @@ after_failure:
 services:
   - mysql
 
-env:
-  global:
-    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
-    #   via the "travis encrypt" command using the project repo's public key
-    - secure: "lPaY7afANEqGZLkjvXWTXNdq0n7KbtJjX0avlbxyI47xAFK43jrvl5/g74UPrnhD96OyuewPiuSXQwr2mES61/q4OVaBAkdMup5thsqHAYtAfiM4E/qxZYybOvPWx+cbfftiwxkfr2UixsiCvTIidQ8KEQX9EB2037WlDbZQFrrPUs4WITlL9CGxAza4O4xeFDmWeCujrl3o98coGLVR40g6yCkXdkgm4V+SnpfLk/BO3hsc7F44jvQHMoOk+C25iR1sdkXGwZWQLTDjsKr3wthKHKe65fA/3T/6mhFyA7ySn6PEiqhPPZmhCGiYJxVG0ZcADJ01lhsvgiCK+3IJXvHklzRn7S4+jJ+weiEdsFRyFlVmaGiVUsOF6n4hcOLlA+jaZm1VOzBAbkR7OhliIPaLxbzgNd+YgFc8MwHXZlEezZg2pMkwitLZDHg8KxOmPmSXtv0sg6chNuZt3bIhQaEbHhTbQWVdWCXdSyTf3kKlqPSoi1Obiy2yK4S2NHG0+3q70DsMKqnUldFbRU1XC+uuFC2lxWNXctIivx304GnQWVK0hMJj4xcwtgxsvf5PHIUifC4J8bi2h9uOQF73z8v+rxJKjKRLo1RpB7Dlj7KNmPT+M2ll28S2yVYsSws2Kmrl7ayiU/zUt0Un22h03dUU3SqaUalBbBqW3o+cFQc="
-
 addons:
   hosts:
   - hasor.net
   - www.hasor.net
-  coverity_scan:
-    project:
-      name: "zycgit/hasor"
-      description: "Build submitted via Travis CI"
-    notification_email: zyc@byshell.org
-    build_command_prepend: "mvn clean"
-    build_command:   "mvn -DskipTests=true compile"
-    branch_pattern: coverity_scan
